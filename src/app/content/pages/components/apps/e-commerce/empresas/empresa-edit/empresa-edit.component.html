@@ -1,0 +1,163 @@
+<m-portlet [options]="{headLarge: true, enableSticky: true}" [loading$]="loading$">
+
+	<ng-container mPortletHeadTitle>
+		<div class="m-portlet__head-title">
+			<h3 class="m-portlet__head-text">
+				{{ getComponentTitle() }}
+			</h3>
+		</div>
+	</ng-container>
+	<ng-container mPortletHeadTools>
+		<button type="button" (click)="goBack()" mat-raised-button matTooltip="Volver a la lista de Dependientes">Volver</button>&nbsp;
+		<button mat-raised-button (click)="reset()" [disabled]="selectedTab !== 0" matTooltip="Restablecer cambios">Restablecer</button>&nbsp;
+
+		<div class="m-buttons--wrapper">
+			<button type="button" (click)="onSumbit(false)" mat-raised-button color="primary" [disabled]="selectedTab !== 0" matTooltip="Guardar & Continuar">Guardar</button>
+			<button mat-icon-button [matMenuTriggerFor]="menu" color="primary" >
+				<mat-icon>more_vert</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item color="primary" (click)="onSumbit(true)">Guardar & Salir</button>
+				<button mat-menu-item color="primary">Guardar & Duplicar</button>
+				<button mat-menu-item color="primary" (click)="onSumbit(false)">Guardar & Continuar</button>
+			</mat-menu>
+		</div>
+	</ng-container>
+	<ng-container mPortletBody>
+		<mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="empresa">
+			<mat-tab label="Informacion Empresa">
+				<ng-template matTabContent>
+					<!--begin::Form-->
+					<form [formGroup]="empresaForm" class="m-form m-form--group-seperator-dashed">
+
+						<m-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+							Oh snap! Change a few things up and try submitting again.
+						</m-alert>
+
+						<div class="m-form__section m-form__section--first">
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-6 m--margin-bottom-20-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<input matInput placeholder="Ingrese el Nombre" formControlName="nombre">
+											<mat-error>
+												Nombre es
+												<strong>requerido</strong>
+											</mat-error>
+											<mat-hint align="start">Ingrese el
+												<strong>Nombre</strong>
+											</mat-hint>
+										</mat-form-field>
+									</div>
+									
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<mat-select placeholder="Tipo Doc" formControlName="tipo_doc">
+												<mat-option value="1">CI</mat-option>
+												<mat-option value="2">RUN</mat-option>
+												<mat-option value="3">Pasaporte</mat-option>
+												<mat-option value="4">Carnet de extranjero</mat-option>
+												<mat-option value="5">Otro</mat-option>
+											</mat-select>
+											<mat-hint align="start">
+												<strong>Tipo Doc</strong>
+											</mat-hint>
+										</mat-form-field>
+									</div>
+
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<input type="number" matInput placeholder="Nro. Doc" formControlName="nro_doc" />
+											<mat-error>Nro. Doc
+												<strong>Requerido</strong>
+											</mat-error>
+											<mat-hint align="start">
+												<strong>Nro. Doc</strong> identificacion</mat-hint>
+										</mat-form-field>
+									</div>
+
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<mat-select placeholder="Exp" formControlName="exp_doc">
+												<mat-option value="CB">Cochabanba</mat-option>
+												<mat-option value="SZ">Santa Cruz</mat-option>
+												<mat-option value="LP">La Paz</mat-option>
+												<mat-option value="OR">Oruro</mat-option>
+											</mat-select>
+											<mat-hint align="start">
+												<strong>Expedido</strong>
+											</mat-hint>
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="m-form__section m-form__section--first">
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<input type="number" matInput placeholder="NIT" formControlName="nit" />
+											<mat-error>NIT
+												<strong>Requerido</strong>
+											</mat-error>
+											<mat-hint align="start">
+												<strong>NIT</strong></mat-hint>
+										</mat-form-field>
+									</div>
+
+                                    <div class="col-md-5 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput placeholder="Nombre Representante Legal" formControlName="nombre_rep_legal" />
+                                            <mat-error>Nombre Representante
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">Ingrese el
+                                                <strong>Nombre del representante</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+									</div>
+									
+                                    <div class="col-md-5 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput placeholder="Titulo Representante Legal" formControlName="titulo_rep_legal" />
+                                            <mat-error>Titulo Representante
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">Ingrese el
+                                                <strong>Titulo del representante</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!--end::Form-->
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Sucursales" [disabled]="!empresa.id">
+				<ng-template matTabContent>
+					<m-sucursals-list [sucursalsListState]="sucursalsListState" [(loadingSubject)]="loadingSubject"></m-sucursals-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Gestiones" [disabled]="!empresa.id">
+				<ng-template matTabContent>
+					<m-gestions-list [gestionsListState]="gestionsListState" [(loadingSubject)]="loadingSubject"></m-gestions-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Aportes Laborales" [disabled]="!empresa.id">
+				<ng-template matTabContent>
+					<m-laborals-list [laboralsListState]="laboralsListState" [(loadingSubject)]="loadingSubject"></m-laborals-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Aportes Patronales" [disabled]="!empresa.id">
+				<ng-template matTabContent>
+					<m-patronals-list [patronalsListState]="patronalsListState" [(loadingSubject)]="loadingSubject"></m-patronals-list>
+				</ng-template>
+			</mat-tab>
+		</mat-tab-group>
+	</ng-container>
+</m-portlet>

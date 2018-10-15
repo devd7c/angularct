@@ -1,0 +1,124 @@
+<!-- start::FILTERS & GROUP ACTIONS -->
+<div class="m-form">
+		<!-- start::FILTERS -->
+		<div class="m-form__filtration">
+			<div class="row align-items-center">
+				<div class="col-md-2 m--margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Search Laboral" #searchInput placeholder="Search">
+						<mat-hint align="start">Search in all fields</mat-hint>
+					</mat-form-field>
+				</div>
+				<div class="col-md-10 text-right m--margin-bottom-10-mobile">
+					<button type="button"
+						(click)="addLaboral()"
+						mat-raised-button
+						color="primary"
+						matTooltip="Create new Laboral">Nueva Laboral</button>
+				</div>
+			</div>
+		</div>
+		<!-- end::FILTERS -->
+	
+		<!-- start::GROUP ACTIONS -->
+		<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->
+		<!-- Group actions are shared for all LISTS | See '../../_shared' folder -->
+		<div class="row align-items-center collapse m-form__group-actions m--margin-bottom-20" [ngClass]="{'show' : selection.selected.length > 0}">
+			<div class="col-xl-12">
+				<div class="m-form__group m-form__group--inline">
+					<div class="m-form__label m-form__label-no-wrap">
+						<label class="m--font-bold m--font-danger-">Selected records count: {{ selection.selected.length }}</label>
+					</div>
+					<div class="m-form__control m-form__group--inline">
+						<div>
+							<button mat-raised-button color="accent" (click)="deleteLaborals()" matTooltip="Delete selected Laborals">Delete All</button>
+							&nbsp;&nbsp;&nbsp;
+							<button mat-raised-button color="warn" (click)="fetchLaborals()" matTooltip="Fetch selected Laborals">Fetch Selected Records</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		 <!-- end::GROUP ACTIONS -->
+	
+	</div>
+	<!-- end::FILTERS & GROUP ACTIONS -->
+	
+	<!-- MATERIAL TABLE | Binded to datasources -->
+	<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
+	<div class="mat-table__wrapper  mat-table__wrapper--sub">
+			<mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+				<!-- Checkbox Column -->
+				<!-- Table with selection -->
+				<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+				<ng-container matColumnDef="select">
+					<mat-header-cell *matHeaderCellDef class="mat-column mat-column-checkbox">
+						<mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+						</mat-checkbox>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row" class="mat-column mat-column-checkbox">
+						<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+						</mat-checkbox>
+					</mat-cell>
+				</ng-container>
+	
+				<ng-container matColumnDef="id">
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column mat-column-id">ID</mat-header-cell>
+					<mat-cell *matCellDef="let laboral" class="mat-column mat-column-id">
+						<span>{{laboral.id}}</span>
+					</mat-cell>
+				</ng-container>
+	
+				<ng-container matColumnDef="smn">
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Sueldo Minimo Nacional</mat-header-cell>
+					<mat-cell *matCellDef="let laboral" class="mat-column">Bs. {{laboral.smn}}</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="comision_afp">
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">AFP</mat-header-cell>
+					<mat-cell *matCellDef="let laboral" class="mat-column">% {{laboral.comision_afp}}</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="provivienda">
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Provivienda</mat-header-cell>
+					<mat-cell *matCellDef="let laboral" class="mat-column">% {{laboral.provivienda}}</mat-cell>
+				</ng-container>
+	
+				<ng-container matColumnDef="activo">
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Activo</mat-header-cell>
+					<mat-cell *matCellDef="let laboral" class="mat-column">{{laboral.activo}}</mat-cell>
+				</ng-container>
+	
+				<ng-container matColumnDef="actions">
+					<mat-header-cell *matHeaderCellDef class="mat-column-actions">
+						Actions
+					</mat-header-cell>
+					<mat-cell *matCellDef="let laboral" class="mat-column-actions">
+						<button type="button" 
+							mat-icon-button 
+							color="primary" 
+							(click)="showLaboral(laboral)" 
+							matTooltip="Ver Aporte laboral">
+							<mat-icon>remove_red_eye</mat-icon>
+						</button>
+						<button disabled mat-icon-button 
+							color="warn" 
+							(click)="deleteLaboral(laboral)" 
+							matTooltip="Delete laboral">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</mat-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+			</mat-table>
+		<div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
+	</div>
+	
+	<!-- start: BOTTOM -->
+	<div class="mat-table__bottom">
+		<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+		<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 15, 20, 25, 30]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+	</div>
+	<!-- end: BOTTOM -->
+	

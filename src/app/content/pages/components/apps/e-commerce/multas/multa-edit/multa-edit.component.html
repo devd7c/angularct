@@ -1,0 +1,84 @@
+<m-portlet [options]="{headLarge: true, enableSticky: true}" [loading$]="loading$">
+
+	<ng-container mPortletHeadTitle>
+		<div class="m-portlet__head-title">
+			<h3 class="m-portlet__head-text">
+				{{ getComponentTitle() }}
+			</h3>
+		</div>
+	</ng-container>
+	<ng-container mPortletHeadTools>
+		<button type="button" (click)="goBack()" mat-raised-button matTooltip="Volver a la lista de Dependientes">Volver</button>&nbsp;
+		<button mat-raised-button (click)="reset()" [disabled]="selectedTab !== 0" matTooltip="Restablecer cambios">Restablecer</button>&nbsp;
+
+		<div class="m-buttons--wrapper">
+			<button type="button" (click)="onSumbit(false)" mat-raised-button color="primary" [disabled]="selectedTab !== 0" matTooltip="Guardar & Continuar">Guardar</button>
+			<button mat-icon-button [matMenuTriggerFor]="menu" color="primary" >
+				<mat-icon>more_vert</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item color="primary" (click)="onSumbit(true)">Guardar & Salir</button>
+				<button mat-menu-item color="primary">Guardar & Duplicar</button>
+				<button mat-menu-item color="primary" (click)="onSumbit(false)">Guardar & Continuar</button>
+			</mat-menu>
+		</div>
+	</ng-container>
+	<ng-container mPortletBody>
+		<mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="multa">
+			<mat-tab label="Encabezado Multa">
+				<ng-template matTabContent>
+					<!--begin::Form-->
+					<form [formGroup]="multaForm" class="m-form m-form--group-seperator-dashed">
+
+						<m-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+							Oh snap! Change a few things up and try submitting again.
+						</m-alert>
+
+						<div class="m-form__section m-form__section--first">
+							<div class="m-form__group">
+                                <div class="col-md-12 m--margin-bottom-20-mobile">
+                                    <mat-form-field class="mat-form-field-fluid">
+                                        <mat-select placeholder="Dependiente" formControlName="empleado_id">
+                                            <mat-option value="{{empleado.id}}" *ngFor="let empleado of empleadosTypes;">{{empleado.ap_paterno}} {{empleado.ap_materno}} {{empleado.nombre}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+							</div>
+                            
+							<div class="m-form__group">
+								<div class="row">
+                                    <div class="col-md-6 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Gestion" formControlName="gestion_id" (ngModelChange)="onChange($event)">
+                                                <mat-option value="{{gestion.id}}" *ngFor="let gestion of gestionsTypes;">{{gestion.periodo_inicio}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Periodo" formControlName="periodo_id">
+                                                <mat-option value="{{periodo.id}}" *ngFor="let periodo of periodosTypes;">{{periodo.inicio_mes | date: 'LLLL'}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</form>
+					<!--end::Form-->
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Desglose Multas" [disabled]="!multa.id">
+				<ng-template matTabContent>
+					<m-tmultas-list [tmultasListState]="tmultasListState" [(loadingSubject)]="loadingSubject"></m-tmultas-list>
+				</ng-template>
+			</mat-tab>
+			<!-- <mat-tab label="Multa specifications" [disabled]="!multa.id">
+				<ng-template matTabContent>
+					<m-specifications-list [specsListState]="specsListState" [(loadingSubject)]="loadingSubject"></m-specifications-list>
+				</ng-template>
+			</mat-tab> -->
+		</mat-tab-group>
+	</ng-container>
+</m-portlet>

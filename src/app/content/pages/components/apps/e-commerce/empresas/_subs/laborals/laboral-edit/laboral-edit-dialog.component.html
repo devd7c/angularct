@@ -1,0 +1,128 @@
+<div class="m-portlet" [ngClass]="{ 'm-portlet--body-progress' : viewLoading, 'm-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<span class="m-portlet__head-icon m--hide">
+					<i class="la la-gear"></i>
+				</span>
+				<h3 class="m-portlet__head-text">
+					{{ data.isNew ? 'Create' : 'Update'}} specification
+				</h3>
+			</div>
+		</div>
+	</div>
+	<!--begin::Form-->
+	<form class="m-form">
+		<div class="m-portlet__body">
+
+			<div class="m-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+
+			<div class="m-form__section m-form__section--first">
+				<div class="form-group m-form__group row">
+					<div class="col-6 col-sm m--margin-bottom-10-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="Sueldo minimo nacional" [formControl]="smnUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-10-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="Cuenta individual de vejez" [formControl]="civUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="Seguro de invalidez" [formControl]="siUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="AFP" [formControl]="comision_afpUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="provivienda" [formControl]="proviviendaUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="iva" [formControl]="ivaUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="asa" [formControl]="asaUpdate" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="ans_13" [formControl]="ans_13Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="ans_25" [formControl]="ans_25Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="ans_35" [formControl]="ans_35Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_1" [formControl]="cba_1Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_2" [formControl]="cba_2Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_3" [formControl]="cba_3Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_4" [formControl]="cba_4Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_5" [formControl]="cba_5Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_6" [formControl]="cba_6Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input type="number" matInput placeholder="cba_7" [formControl]="cba_7Update" required>
+						</mat-form-field>
+					</div>
+					<div class="col-6 col-sm m--margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+						<mat-select disabled placeholder="Activo" [formControl]="activoUpdate" required>
+								<mat-option value="1">SI</mat-option>
+								<mat-option value="2">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="m-portlet__foot m-portlet__foot--fit text-right">
+			<div class="m-form__actions m-form__actions m-form__actions--solid">
+				<button type="button" mat-raised-button cdkFocusInitial (click)="onNoClick()" matTooltip="Cancel changes">Cancel</button>&nbsp;
+				<button type="button" mat-raised-button color="primary" (click)="save()" [disabled]="!checkDataIsValid() || viewLoading" matTooltip="Save changes">Save</button>
+			</div>
+		</div>
+	</form>
+	<!--end::Form-->
+</div>

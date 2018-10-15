@@ -1,0 +1,253 @@
+<m-portlet [options]="{headLarge: true, enableSticky: true}" [loading$]="loading$">
+
+	<ng-container mPortletHeadTitle>
+		<div class="m-portlet__head-title">
+			<h3 class="m-portlet__head-text">
+				{{ getComponentTitle() }}
+			</h3>
+		</div>
+	</ng-container>
+	<ng-container mPortletHeadTools>
+		<button type="button" (click)="goBack()" mat-raised-button matTooltip="Volver a la lista">Volver</button>&nbsp;
+		<button mat-raised-button (click)="reset()" [disabled]="selectedTab !== 0" matTooltip="Restablecer cambios">Restablecer</button>&nbsp;
+
+		<div class="m-buttons--wrapper">
+			<button type="button" (click)="onSumbit(false)" mat-raised-button color="primary" matTooltip="Guardar & Continuar">Guardar</button>
+			<button mat-icon-button [matMenuTriggerFor]="menu" color="primary" >
+				<mat-icon>more_vert</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item color="primary" (click)="onSumbit(true)">Guardar & Salir</button>
+				<button mat-menu-item color="primary">Guardar & Duplicar</button>
+				<button mat-menu-item color="primary" (click)="onSumbit(false)">Guardar & Continuar</button>
+			</mat-menu>
+		</div>
+	</ng-container>
+	<ng-container mPortletBody>
+		<mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="rciva">
+			<mat-tab label="Informacion Basica">
+				<ng-template matTabContent>
+					<!--begin::Form-->
+					<form [formGroup]="rcivaForm" class="m-form m-form--group-seperator-dashed">
+
+						<m-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+							Oh snap! Change a few things up and try submitting again.
+						</m-alert>
+
+						<div class="m-form__section m-form__section--first">
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Sueldo" formControlName="haber_basico" />
+                                            <mat-error>Sueldo es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Sueldo</strong> Haber Basico</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Sueldo" formControlName="sueldo" />
+                                            <mat-error>Sueldo es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Sueldo</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Saldo" formControlName="saldo" />
+                                            <mat-error>Saldo es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Saldo</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Factura" formControlName="factura" />
+                                            <mat-error>Factura es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Factura</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Aporte Nacional Solidario" formControlName="ans" />
+                                            <mat-error>Ans es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Aporte Nacional Solidario</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Sueldo Neto" formControlName="sueldo_neto" />
+                                            <mat-error>Sueldo Neto es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Sueldo Neto</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+								</div>
+							</div>
+
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="salario minimo nacional" formControlName="smn2" />
+                                            <mat-error>salario minimo nac. es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>salario minimo nac.</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Base Imponible" formControlName="base_imponible" />
+                                            <mat-error>Base Imponible es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Base Imponible</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Debito Fiscal" formControlName="debito_fiscal" />
+                                            <mat-error>Debito Fiscal es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Debito Fiscal</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Credito Fiscal" formControlName="credito_fiscal" />
+                                            <mat-error>Credito Fiscal es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Credito Fiscal</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="smn2_iva" formControlName="smn2_iva" />
+                                            <mat-error>smn2_iva es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>smn2_iva</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Saldo Anterior" formControlName="saldo_anterior" />
+                                            <mat-error>Saldo Anterior es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Saldo Anterior</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+								</div>
+							</div>
+
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Saldo Anterior Actualizado" formControlName="saldo_anterior_actualizado" />
+                                            <mat-error>Saldo Anterior Actualizado es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Saldo Anterior Actualizado</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Saldo Anterior Nuevo" formControlName="saldo_anterior_nuevo" />
+                                            <mat-error>Saldo Anterior Nuevo es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Saldo Anterior Nuevo</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Impuesto Periodo" formControlName="impuesto_periodo" />
+                                            <mat-error>Impuesto Periodo es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Impuesto Periodo</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Credito Fiscal Dependiente" formControlName="credito_fiscal_dependiente" />
+                                            <mat-error>Credito Fiscal Dependiente es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Credito Fiscal Dependiente</strong></mat-hint>
+                                        </mat-form-field>
+                                    </div>
+								</div>
+                            </div>                        
+                            
+							<!-- <div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-10-mobile">
+										<div>Condition:</div>
+										<mat-radio-group formControlName="condition" class="example-radio-group">
+											<mat-radio-button class="example-radio-button" value="0">New</mat-radio-button>
+											<mat-radio-button class="example-radio-button" value="1">Used</mat-radio-button>
+										</mat-radio-group>
+									</div>
+									<div class="col-md-4">
+										<div>Status:</div>
+										<mat-radio-group formControlName="status" class="example-radio-group">
+											<mat-radio-button class="example-radio-button" value="0">Selling</mat-radio-button>
+											<mat-radio-button class="example-radio-button" value="1">Sold</mat-radio-button>
+										</mat-radio-group>
+									</div>
+									<div class="col-md-12 m--margin-bottom-10-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<textarea matInput rows="7" placeholder="Enter Description" formControlName="description"></textarea>
+										</mat-form-field>
+									</div>
+								</div>
+							</div> -->
+						</div>
+					</form>
+					<!--end::Form-->
+				</ng-template>
+			</mat-tab>
+			<!--<mat-tab label="Rciva remarks" [disabled]="!rciva.id">
+				<ng-template matTabContent>
+					<m-remarks-list [remarksListState]="remarksListState" [(loadingSubject)]="loadingSubject"></m-remarks-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Rciva specifications" [disabled]="!rciva.id">
+				<ng-template matTabContent>
+					<m-specifications-list [specsListState]="specsListState" [(loadingSubject)]="loadingSubject"></m-specifications-list>
+				</ng-template>
+			</mat-tab> -->
+		</mat-tab-group>
+	</ng-container>
+</m-portlet>

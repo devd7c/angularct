@@ -1,0 +1,61 @@
+<div class="m-portlet" [ngClass]="{ 'm-portlet--body-progress' : viewLoading, 'm-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<span class="m-portlet__head-icon m--hide">
+					<i class="la la-gear"></i>
+				</span>
+				<div class="row">
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<h3 class="m-portlet__head-text">
+						Aportes Patronales
+						<!--{{ data.isNew ? 'Create' : 'Update'}} specification-->
+						</h3>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<mat-slide-toggle [checked]="getValue()" [(ngModel)]="isActivo" name="activo">Activo</mat-slide-toggle>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--begin::Form-->
+	<div class="m-widget29">
+		<div class="m-widget_content">
+			<div class="m-widget_content-items">
+				<div class="row">
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>SARP</span>
+							<span class="m--font-accent">{{ sarp }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>Provivienda</span>
+							<span class="m--font-accent">{{ provivienda }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>INFOCAL</span>
+							<span class="m--font-accent">{{ infocal }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>CNSS</span>
+							<span class="m--font-accent">{{ cnss }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>SIP</span>
+							<span class="m--font-accent">{{ sip }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!--end::Form-->
+</div>

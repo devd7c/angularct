@@ -1,0 +1,2 @@
+****************GENERATE BUILD*****************
+ng build --prod --build-optimizer

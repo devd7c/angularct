@@ -1,0 +1,140 @@
+<div class="m-portlet" [ngClass]="{ 'm-portlet--body-progress' : viewLoading, 'm-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<span class="m-portlet__head-icon m--hide">
+					<i class="la la-gear"></i>
+				</span>
+				<div class="row">
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<h3 class="m-portlet__head-text">
+						Aportes Laborales
+						<!--{{ data.isNew ? 'Create' : 'Update'}} specification-->
+						</h3>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<mat-slide-toggle [checked]="getValue()" [(ngModel)]="isActivo" name="activo">Activo</mat-slide-toggle>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--begin::Form-->
+	<div class="m-widget29">
+		<div class="m-widget_content">
+			<div class="m-widget_content-items">
+				<div class="row">
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>SMN</span>
+							<span class="m--font-accent">{{ smn }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>CIV</span>
+							<span class="m--font-accent">{{ civ }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>SI</span>
+							<span class="m--font-accent">{{ si }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>Comision AFP</span>
+							<span class="m--font-accent">{{ comision_afp }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>Provivienda</span>
+							<span class="m--font-accent">{{ provivienda }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>IVA</span>
+							<span class="m--font-accent">{{ iva }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>ASA</span>
+							<span class="m--font-accent">{{ asa }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>ANS-13</span>
+							<span class="m--font-accent">{{ ans_13 }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>ANS-25</span>
+							<span class="m--font-accent">{{ ans_25 }}</span>
+						</div>
+					</div>
+					<div class="col-4 col-md-auto m--margin-bottom-0-mobile">
+						<div class="m-widget_content-item">
+							<span>ANS-35</span>
+							<span class="m--font-accent">{{ ans_35 }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="m-widget_content">
+			<h3 class="m-widget_content-title">Bonos de Antiguedad</h3>
+			<div class="m-widget_content-items">
+				<div class="row">
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-1</span>
+						<span class="m--font-accent">{{ cba_1 }}</span>
+					</div>
+				</div>
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-2</span>
+						<span class="m--font-accent">{{ cba_2 }}</span>
+					</div>
+				</div>
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-3</span>
+						<span class="m--font-accent">{{ cba_3 }}</span>
+					</div>
+				</div>
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-4</span>
+						<span class="m--font-accent">{{ cba_4 }}</span>
+					</div>
+				</div>
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-5</span>
+						<span class="m--font-accent">{{ cba_5 }}</span>
+					</div>
+				</div>
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-6</span>
+						<span class="m--font-accent">{{ cba_6 }}</span>
+					</div>
+				</div>
+				<div class="col-4 col-sm m--margin-bottom-0-mobile">
+					<div class="m-widget_content-item">
+						<span>CBA-7</span>
+						<span class="m--font-accent">{{ cba_7 }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Form-->
+</div>

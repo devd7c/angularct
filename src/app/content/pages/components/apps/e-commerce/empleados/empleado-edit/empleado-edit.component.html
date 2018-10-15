@@ -1,0 +1,353 @@
+<m-portlet [options]="{headLarge: true, enableSticky: true}" [loading$]="loading$">
+
+	<ng-container mPortletHeadTitle>
+		<div class="m-portlet__head-title">
+			<h3 class="m-portlet__head-text">
+				{{ getComponentTitle() }}
+			</h3>
+		</div>
+	</ng-container>
+	<ng-container mPortletHeadTools>
+		<button type="button" (click)="goBack()" mat-raised-button matTooltip="Volver a la lista de Dependientes">Volver</button>&nbsp;
+		<button mat-raised-button (click)="reset()" [disabled]="selectedTab !== 0" matTooltip="Restablecer cambios">Restablecer</button>&nbsp;
+
+		<div class="m-buttons--wrapper">
+			<button type="button" (click)="onSumbit(false)" mat-raised-button color="primary" matTooltip="Guardar & Continuar">Guardar</button>
+			<button mat-icon-button [matMenuTriggerFor]="menu" color="primary" >
+				<mat-icon>more_vert</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item color="primary" (click)="onSumbit(true)">Guardar & Salir</button>
+				<button mat-menu-item color="primary">Guardar & Duplicar</button>
+				<button mat-menu-item color="primary" (click)="onSumbit(false)">Guardar & Continuar</button>
+			</mat-menu>
+		</div>
+	</ng-container>
+	<ng-container mPortletBody>
+		<mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="empleado">
+			<mat-tab label="Informacion Basica">
+				<ng-template matTabContent>
+					<!--begin::Form-->
+					<form [formGroup]="empleadoForm" class="m-form m-form--group-seperator-dashed">
+
+						<m-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+							Oh snap! Change a few things up and try submitting again.
+						</m-alert>
+
+						<div class="m-form__section m-form__section--first">
+							<div class="m-form__group">
+								<div class="row">
+
+									<div class="col-md-4 m--margin-bottom-20-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<input matInput placeholder="Ingrese el Nombre" formControlName="nombre">
+											<mat-error>
+												Nombre es
+												<strong>requerido</strong>
+											</mat-error>
+											<mat-hint align="start">Ingrese el
+												<strong>Nombre</strong>
+											</mat-hint>
+										</mat-form-field>
+									</div>
+									<div class="col-md-4 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput placeholder="Apellido Paterno" formControlName="ap_paterno" />
+                                            <mat-error>Apellido Paterno es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">Ingrese el
+                                                <strong>Apellido Paterno</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+									</div>
+									<div class="col-md-4 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput placeholder="Apellido Materno" formControlName="ap_materno" />
+                                            <mat-error>Apellido Materno es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">Ingrese el
+                                                <strong>Apellido Materno</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+									</div>
+								</div>
+							</div>
+
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                    <mat-form-field class="mat-form-field-fluid">
+                                        <mat-select placeholder="Tipo Doc" formControlName="tipo_doc">
+                                            <mat-option value="1">CI</mat-option>
+                                            <mat-option value="2">RUN</mat-option>
+                                            <mat-option value="3">Pasaporte</mat-option>
+                                            <mat-option value="4">Carnet de extranjero</mat-option>
+                                            <mat-option value="5">Otro</mat-option>
+                                        </mat-select>
+                                        <mat-hint align="start">
+                                            <strong>Tipo Doc</strong>
+                                        </mat-hint>
+                                    </mat-form-field>
+									</div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Nro. Doc" formControlName="nro_doc" />
+                                            <mat-error>Nro. Doc
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Nro. Doc</strong> identificacion</mat-hint>
+                                        </mat-form-field>
+									</div>
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Exp" formControlName="exp_doc">
+                                                <mat-option value="CB">Cochabanba</mat-option>
+                                                <mat-option value="SZ">Santa Cruz</mat-option>
+                                                <mat-option value="LP">La Paz</mat-option>
+                                                <mat-option value="OR">Oruro</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Expedido</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Afiliacion" formControlName="afiliacion">
+                                                <mat-option value="1">Prevision</mat-option>
+                                                <mat-option value="2">Futuro</mat-option>
+                                                <mat-option value="3">Otro</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Afiliacion</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="NUA/CUA" formControlName="nua_cua" />
+                                            <mat-error>NUA/CUA
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>NUA/CUA</strong> identificacion</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Nacionalidad" formControlName="nacionalidad">
+                                                <mat-option value="Bolivia">Bolivia</mat-option>
+                                                <mat-option value="Argentina">Argentina</mat-option>
+                                                <mat-option value="Venezuela">Venezuela</mat-option>
+                                                <mat-option value="Colombia">Colombia</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Nacionalidad</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+								</div>
+							</div>
+
+							<div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="fNacimiento" />
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                            <mat-hint align="start">
+                                                <strong>Fecha de Nacimiento</strong> en formato 'mm/dd/yyyy'</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    
+									<div class="col-md-1 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Genero" formControlName="sexo">
+                                                <mat-option value="1">Femenino</mat-option>
+                                                <mat-option value="2">Masculino</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Genero</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+									<div class="col-md-1 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Jubilado" formControlName="jubilado">
+                                                <mat-option value="1">Si</mat-option>
+                                                <mat-option value="2">No</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Jubilado</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-1 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Obrero" formControlName="obrero">
+                                                <mat-option value="1">Si</mat-option>
+                                                <mat-option value="2">No</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Obrero</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Sueldo" formControlName="haber_basico" />
+                                            <mat-error>Sueldo es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Sueldo</strong> Haber Basico</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+									<div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input type="number" matInput placeholder="Nro. Matricula" formControlName="nro_matricula" />
+                                            <mat-error>Matricula es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">
+                                                <strong>Matricula</strong> nro. Matricula</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+									<div class="col-md-1 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Categoria" formControlName="categoria">
+                                                <mat-option value="1">1</mat-option>
+                                                <mat-option value="2">2</mat-option>
+                                                <mat-option value="3">3</mat-option>
+                                                <mat-option value="4">4</mat-option>
+                                                <mat-option value="5">5</mat-option>
+                                                <mat-option value="6">6</mat-option>
+                                                <mat-option value="7">7</mat-option>
+                                            </mat-select>
+                                            <mat-hint align="start">
+                                                <strong>Categoria</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput [matDatepicker]="pickerIngreso" placeholder="Fecha de Ingreso" formControlName="fIngreso" />
+                                            <mat-datepicker-toggle matSuffix [for]="pickerIngreso"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerIngreso></mat-datepicker>
+                                            <mat-hint align="start">
+                                                <strong>Fecha de Ingreso</strong> en formato 'mm/dd/yyyy'</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+								</div>
+                            </div>
+                            
+							<div class="m-form__group">
+								<div class="row">
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Empresa" formControlName="empresa_id" (ngModelChange)="onChange($event)">
+                                                <mat-option value="{{empresa.id}}" *ngFor="let empresa of empresasTypes;">{{empresa.nombre}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Sucursal" formControlName="sucursal_id">
+                                                <mat-option value="{{sucursal.id}}" *ngFor="let sucursal of sucursalsTypes;">{{sucursal.nombre}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Contrato" formControlName="contrato_id">
+                                                <mat-option value="{{contrato.id}}" *ngFor="let contrato of contratosTypes;">{{contrato.nombre}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Puesto" formControlName="puesto_id">
+                                                <mat-option value="{{puesto.id}}" *ngFor="let puesto of puestosTypes;">{{puesto.nombre}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <mat-select placeholder="Cargo" formControlName="cargo_id">
+                                                <mat-option value="{{cargo.id}}" *ngFor="let cargo of cargosTypes;">{{cargo.nombre}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-2 m--margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid">
+                                            <input matInput placeholder="Domicilio" formControlName="domicilio" />
+                                            <mat-error>Domicilio es
+                                                <strong>Requerido</strong>
+                                            </mat-error>
+                                            <mat-hint align="start">Ingrese el
+                                                <strong>Domicilio</strong>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            
+							<!-- <div class="m-form__group">
+								<div class="row">
+									<div class="col-md-2 m--margin-bottom-10-mobile">
+										<div>Condition:</div>
+										<mat-radio-group formControlName="condition" class="example-radio-group">
+											<mat-radio-button class="example-radio-button" value="0">New</mat-radio-button>
+											<mat-radio-button class="example-radio-button" value="1">Used</mat-radio-button>
+										</mat-radio-group>
+									</div>
+									<div class="col-md-4">
+										<div>Status:</div>
+										<mat-radio-group formControlName="status" class="example-radio-group">
+											<mat-radio-button class="example-radio-button" value="0">Selling</mat-radio-button>
+											<mat-radio-button class="example-radio-button" value="1">Sold</mat-radio-button>
+										</mat-radio-group>
+									</div>
+									<div class="col-md-12 m--margin-bottom-10-mobile">
+										<mat-form-field class="mat-form-field-fluid">
+											<textarea matInput rows="7" placeholder="Enter Description" formControlName="description"></textarea>
+										</mat-form-field>
+									</div>
+								</div>
+							</div> -->
+						</div>
+					</form>
+					<!--end::Form-->
+				</ng-template>
+			</mat-tab>
+			<!--<mat-tab label="Empleado remarks" [disabled]="!empleado.id">
+				<ng-template matTabContent>
+					<m-remarks-list [remarksListState]="remarksListState" [(loadingSubject)]="loadingSubject"></m-remarks-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Empleado specifications" [disabled]="!empleado.id">
+				<ng-template matTabContent>
+					<m-specifications-list [specsListState]="specsListState" [(loadingSubject)]="loadingSubject"></m-specifications-list>
+				</ng-template>
+			</mat-tab> -->
+		</mat-tab-group>
+	</ng-container>
+</m-portlet>
