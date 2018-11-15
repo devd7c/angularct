@@ -18,13 +18,6 @@ import { ListStateModel, StateActions } from '../../../../_core/utils/list-state
 // Components
 import { SucursalEditDialogComponent } from '../sucursal-edit/sucursal-edit-dialog.component';
 
-// Table with EDIT item in new page
-// ARTICLE for table with sort/filter/paginator
-// https://blog.angular-university.io/angular-material-data-table/
-// https://v5.material.angular.io/components/table/overview
-// https://v5.material.angular.io/components/sort/overview
-// https://v5.material.angular.io/components/table/overview#sorting
-// https://www.youtube.com/watch?v=NSt9CI3BXv4
 @Component({
 	selector: 'm-sucursals-list',
 	templateUrl: './sucursals-list.component.html',
