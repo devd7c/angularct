@@ -1,0 +1,26 @@
+::ng-deep .my-graduation-class .tooltip-inner {
+    max-width: 600px;width: max-content;background-color: darkgreen;font-size: 125%;opacity: 0.8;
+}
+::ng-deep .my-graduation-class .arrow::before {
+    border-top-color: darkgreen;opacity: 0.8;
+}
+
+::ng-deep .my-lastgraduation-class .tooltip-inner {
+    max-width: 600px;width: max-content;background-color: darkgreen;font-size: 125%;opacity: 0.5;
+}
+::ng-deep .my-lastgraduation-class .arrow::before {
+    border-top-color: darkgreen;opacity: 0.5;
+}
+
+::ng-deep .my-nextgraduation-class .tooltip-inner {
+    max-width: 600px;width: max-content;background-color: #c4c5d6;font-size: 125%;opacity: 0.8;
+}
+::ng-deep .my-nextgraduation-class .arrow::before {
+    border-top-color: #c4c5d6;opacity: 0.8;
+}
+.m-timeline-2 .m-timeline-2__items .m-timeline-2__item .m-timeline-2__item-text.m-timeline-2__item-text--bold {
+    padding-left: 0px !important;
+}
+.m-timeline-2 .m-timeline-2__items .m-timeline-2__item .m-timeline-2__item-time {
+    font-size: 1.1rem !important;;
+}

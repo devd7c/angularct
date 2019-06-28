@@ -146,9 +146,7 @@
 
 			<ng-container matColumnDef="id">
 				<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column mat-column-id">ID</mat-header-cell>
-				<mat-cell *matCellDef="let tbono" class="mat-column mat-column-id">
-					<span>{{tbono.id}}</span>
-				</mat-cell>
+				<mat-cell *matCellDef="let tbono" class="mat-column mat-column-id"><span>{{tbono.id}}</span></mat-cell>
 			</ng-container>
 
 			<ng-container matColumnDef="fecha">
@@ -196,60 +194,33 @@
 					<span *ngIf="!tbono._isEditMode">{{tbono.descripcion}}</span>
 				</mat-cell>
 			</ng-container>
-
 			<ng-container matColumnDef="actions">
-				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-actions">
-					Actions
-				</mat-header-cell>
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-actions">Actions</mat-header-cell>
 				<mat-cell *matCellDef="let tbono" class="mat-column mat-column-actions">
-					<button *ngIf="!tbono._isEditMode" 
-						[disabled]="isSwitchedToEditMode" 
-						type="button" 
-						mat-icon-button 
-						color="primary" 
-						(click)="editTbonoButtonOnClick(tbono)" 
-						matTooltip="Edit tbono">
-						<mat-icon>create</mat-icon>
+					<button *ngIf="!tbono._isEditMode" [disabled]="isSwitchedToEditMode" type="button" mat-icon-button color="primary" 
+						(click)="editTbonoButtonOnClick(tbono)" matTooltip="Edit tbono"><mat-icon>create</mat-icon>
 					</button>
-					<button *ngIf="tbono._isEditMode && !loadingAfterSubmit"
-						mat-icon-button 
-						color="{{checkEditForm() ? 'primary' : 'accent'}}" 
-						type="button" 
-						(click)="saveUpdateTbono(tbono)" 
-						matTooltip="Save changes">
-						<mat-icon>done</mat-icon>
+					<button *ngIf="tbono._isEditMode && !loadingAfterSubmit"mat-icon-button color="{{checkEditForm() ? 'primary' : 'accent'}}" type="button"
+						(click)="saveUpdateTbono(tbono)" matTooltip="Save changes"><mat-icon>done</mat-icon>
 					</button>
-					<mat-spinner *ngIf="tbono._isEditMode && loadingAfterSubmit" [diameter]="20"></mat-spinner>
-					&nbsp;
-					<button *ngIf="!tbono._isEditMode" 
-						[disabled]="isSwitchedToEditMode" 
-						mat-icon-button 
-						color="warn" 
-						type="button" 
-						(click)="deleteTbono(tbono)" 
-						matTooltip="Delete tbono">
-						<mat-icon>delete</mat-icon>
+					<mat-spinner *ngIf="tbono._isEditMode && loadingAfterSubmit" [diameter]="20"></mat-spinner>&nbsp;
+					<button *ngIf="!tbono._isEditMode" [disabled]="isSwitchedToEditMode" mat-icon-button color="warn" type="button" 
+						(click)="deleteTbono(tbono)" matTooltip="Delete tbono"><mat-icon>delete</mat-icon>
 					</button>
-					<button *ngIf="tbono._isEditMode" 
-						type="button" 
-						mat-icon-button 
-						color="warn" 
-						(click)="cancelEditButtonOnClick(tbono)" 
-						matTooltip="Cancel changes">
-						<mat-icon>clear</mat-icon>
+					<button *ngIf="tbono._isEditMode" type="button" mat-icon-button color="warn" 
+						(click)="cancelEditButtonOnClick(tbono)" matTooltip="Cancel changes"><mat-icon>clear</mat-icon>
 					</button>
 				</mat-cell>
 			</ng-container>
 			<!-- end: EDIT row -->
-
 			<mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'mat-row-editing' : row._isEditMode}"></mat-row>
 			<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-			<mat-header-row *matHeaderRowDef="['add-select', 'add-id', 'add-monto', 'add-descripcion', 'add-fecha', 'add-actions']" class="mat-row-editing mat-row-add" [ngClass]="{'mat-row-inactive' : !tbonoForAdd._isEditMode}">
+			<mat-header-row *matHeaderRowDef="['add-select', 'add-id', 'add-monto', 'add-descripcion', 'add-fecha', 'add-actions']" 
+			class="mat-row-editing mat-row-add" [ngClass]="{'mat-row-inactive' : !tbonoForAdd._isEditMode}">
 			<!--<mat-header-row *matHeaderRowDef="['add-select', 'add-id', 'add-text', 'add-type', 'add-dueDate', 'add-actions']" class="mat-row-editing mat-row-add" [ngClass]="{'mat-row-inactive' : !tbonoForAdd._isEditMode}"> -->			
 			</mat-header-row>
 		</mat-table>
 	</form>
-
 	<div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
 </div>
 
